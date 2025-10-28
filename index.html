@@ -18,17 +18,20 @@
         text-align: center;
         overflow: hidden;
     }
+
     h1 {
         font-size: 2em;
         margin-bottom: 20px;
         color: #c71585;
     }
+
     p {
         font-size: 1.2em;
         max-width: 500px;
         margin-bottom: 20px;
         line-height: 1.5em;
     }
+
     input {
         padding: 10px;
         font-size: 1em;
@@ -37,6 +40,7 @@
         width: 200px;
         margin-bottom: 10px;
     }
+
     button {
         padding: 10px 20px;
         font-size: 1em;
@@ -47,9 +51,11 @@
         cursor: pointer;
         transition: background 0.3s;
     }
+
     button:hover {
         background-color: #e754a0;
     }
+
     #result {
         margin-top: 20px;
         font-size: 1.3em;
@@ -58,7 +64,6 @@
         transition: opacity 1s ease-in;
     }
 
-    /* Heart animation */
     .heart {
         position: absolute;
         font-size: 24px;
@@ -96,8 +101,9 @@ I make hearts warm and eyes sincere.”
 function checkAnswer() {
     const userAnswer = document.getElementById('answer').value.toLowerCase().trim();
     const result = document.getElementById('result');
+
     if(userAnswer === "smile") {
-        result.innerHTML = "🎉 You got it! Dinner is on me. Can't wait to see you 😊";
+        result.innerHTML = "🎉 You got it! Claim your prize: send a message to <strong>06602249414</strong> 😊";
         result.style.opacity = 1;
         createHearts(20);
     } else {
@@ -106,18 +112,20 @@ function checkAnswer() {
     }
 }
 
-// Create floating hearts
 function createHearts(count) {
-    for(let i = 0; i < count; i++) {
+    for(let i = 0; i < count; i++){
         const heart = document.createElement('div');
         heart.className = 'heart';
         heart.innerHTML = '❤️';
         heart.style.left = Math.random() * window.innerWidth + 'px';
         heart.style.fontSize = (20 + Math.random() * 20) + 'px';
         document.body.appendChild(heart);
-        setTimeout(() => {
-            heart.remove();
-        }, 3000);
+        heart.animate(
+            [{transform: 'translateY(0) scale(1)', opacity:1},
+             {transform: 'translateY(-300px) scale(0.8)', opacity:0}],
+            {duration:3000, iterations:1}
+        );
+        setTimeout(() => heart.remove(), 3000);
     }
 }
 </script>
