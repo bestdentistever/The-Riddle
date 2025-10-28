@@ -98,12 +98,14 @@ I make hearts warm and eyes sincere.”
 <p id="result"></p>
 
 <script>
+const prizePhoneNumber = "06602249414"; // <-- Change the number here anytime
+
 function checkAnswer() {
     const userAnswer = document.getElementById('answer').value.toLowerCase().trim();
     const result = document.getElementById('result');
 
     if(userAnswer === "smile") {
-        result.innerHTML = "🎉 You got it! Claim your prize: send a message to <strong>06602249414</strong> 😊";
+        result.innerHTML = `🎉 You got it! Claim your prize: send a message to <strong>${06602249414}</strong> 😊`;
         result.style.opacity = 1;
         createHearts(20);
     } else {
