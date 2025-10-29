@@ -82,79 +82,9 @@ button:hover {
     50% { transform: translateY(-150px) scale(1.3); opacity: 0.7; }
     100% { transform: translateY(-300px) scale(0.8); opacity: 0; }
 }
-
-/* Cartoon Dentist Placeholder */
-#dentist {
-    position: relative;
-    margin: 40px 0 20px 0;
-    width: 150px;
-    height: 150px;
-    background: #ffe0f0;
-    border-radius: 50%;
-    box-shadow: 0 0 15px rgba(199, 21, 133, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    animation: breathe 4s ease-in-out infinite;
-}
-
-#dentist::before {
-    content: '';
-    width: 20px;
-    height: 20px;
-    background: #333;
-    border-radius: 50%;
-    position: absolute;
-    top: 45px;
-    left: 40px;
-}
-
-#dentist::after {
-    content: '';
-    width: 20px;
-    height: 20px;
-    background: #333;
-    border-radius: 50%;
-    position: absolute;
-    top: 45px;
-    right: 40px;
-}
-
-/* Smiling mouth */
-.mouth {
-    position: absolute;
-    bottom: 40px;
-    width: 60px;
-    height: 20px;
-    border-bottom: 4px solid #c71585;
-    border-radius: 0 0 30px 30px;
-}
-
-/* Breathing animation */
-@keyframes breathe {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-}
-
-/* Happy bounce */
-.happy {
-    animation: happyBounce 0.6s ease-in-out infinite alternate;
-    filter: brightness(1.3) saturate(1.2);
-}
-
-@keyframes happyBounce {
-    0% { transform: translateY(0) scale(1.05) rotate(0deg); }
-    100% { transform: translateY(-10px) scale(1.08) rotate(2deg); }
-}
 </style>
 </head>
 <body>
-
-<!-- Cartoon Dentist Placeholder -->
-<div id="dentist">
-    <div class="mouth"></div>
-</div>
 
 <h1>Can You Solve This Riddle?</h1>
 
@@ -173,7 +103,6 @@ I make hearts warm and eyes sincere.”
 
 <script>
 const prizePhoneNumber = "06602249414";
-const dentist = document.getElementById('dentist');
 
 function checkAnswer() {
     const userAnswer = document.getElementById('answer').value.toLowerCase().trim();
@@ -183,11 +112,9 @@ function checkAnswer() {
         result.innerHTML = `🎉 You got it! Claim your prize: send a message to <strong>${prizePhoneNumber}</strong> 😊`;
         result.style.opacity = 1;
         createHearts(20);
-        dentist.classList.add('happy');
     } else {
         result.innerHTML = "Not quite… try again!";
         result.style.opacity = 1;
-        dentist.classList.remove('happy');
     }
 }
 
