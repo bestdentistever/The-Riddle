@@ -12,7 +12,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 100vh;
     padding: 20px;
     text-align: center;
@@ -20,8 +20,10 @@ body {
     position: relative;
 }
 
+/* Title & text */
 h1 {
     font-size: 2em;
+    margin-top: 180px;
     margin-bottom: 20px;
     color: #c71585;
 }
@@ -65,6 +67,7 @@ button:hover {
     transition: opacity 1s ease-in;
 }
 
+/* Floating hearts */
 .heart {
     position: absolute;
     font-size: 24px;
@@ -80,141 +83,70 @@ button:hover {
     100% { transform: translateY(-300px) scale(0.8); opacity: 0; }
 }
 
-/* Cute Chibi Dentist */
+/* === Cute Dentist Character === */
 #dentist {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    width: 100px;
-    height: 220px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: all 0.3s;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: auto;
+    z-index: 5;
+    animation: breathe 4s ease-in-out infinite;
+    transition: transform 0.5s, filter 0.5s;
 }
 
-/* Hair */
-#dentist .hair {
-    width: 80px;
-    height: 60px;
-    background: black;
-    border-radius: 50% 50% 0 0;
-    position: relative;
+#dentist img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(199, 21, 133, 0.3);
 }
 
-/* Face */
-#dentist .face {
-    width: 80px;
-    height: 80px;
-    background: #ffe0bd;
-    border-radius: 50%;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+/* Subtle breathing motion */
+@keyframes breathe {
+    0%, 100% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.03); }
 }
 
-/* Sparkling Eyes */
-.eye {
-    width: 16px;
-    height: 16px;
-    background: black;
-    border-radius: 50%;
-    position: relative;
-    margin: 0 5px;
-}
-
-.eye::before {
+/* Blinking overlay */
+.blink::after {
     content: '';
-    width: 6px;
-    height: 6px;
-    background: white;
-    border-radius: 50%;
     position: absolute;
-    top: 3px;
-    left: 3px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 100%;
+    background: rgba(0,0,0,0.05);
+    animation: blinkAnim 6s infinite;
+    border-radius: 15px;
+    pointer-events: none;
 }
 
-.eyes {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 8px;
+@keyframes blinkAnim {
+    0%, 92%, 100% { opacity: 0; }
+    93%, 95% { opacity: 1; }
 }
 
-/* Cheeks */
-.cheek {
-    width: 10px;
-    height: 10px;
-    background: #ff7f9c;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 15px;
-}
-.cheek.left { left: 15px; }
-.cheek.right { right: 15px; }
-
-/* Mouth */
-.mouth {
-    width: 30px;
-    height: 15px;
-    border-bottom: 3px solid black;
-    border-radius: 0 0 15px 15px;
-    transition: all 0.3s;
+/* Happy glow and bounce */
+.happy {
+    animation: happyBounce 0.6s ease-in-out infinite alternate;
+    filter: brightness(1.3) saturate(1.2);
 }
 
-/* Body */
-#dentist .body {
-    width: 50px;
-    height: 70px;
-    background: #a2d5f2;
-    border-radius: 12px;
-    margin-top: -10px;
-    display: flex;
-    justify-content: flex-end;
-    position: relative;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-
-/* Arms */
-.arm {
-    width: 12px;
-    height: 40px;
-    background: #ffe0bd;
-    border-radius: 6px;
-    position: absolute;
-    top: 10px;
-    transition: all 0.3s;
-}
-.arm.left { left: -15px; transform-origin: top center; }
-.arm.right { right: -15px; transform-origin: top center; }
-
-/* Emotions */
-.impatient .mouth { transform: rotate(180deg); border-color: red; }
-.happy .mouth { transform: rotate(0deg); border-color: green; }
-
-/* Arm animations */
-.impatient .arm.left { animation: wave 0.4s infinite alternate; transform: rotate(30deg); }
-.impatient .arm.right { animation: wave 0.4s infinite alternate; transform: rotate(-30deg); }
-.happy .arm.left { transform: rotate(0deg); }
-.happy .arm.right { transform: rotate(0deg); }
-
-/* Jump animation */
-.happy { animation: jump 0.6s ease-in-out infinite alternate; }
-
-@keyframes wave {
-    0% { transform: rotate(30deg); }
-    100% { transform: rotate(60deg); }
-}
-
-@keyframes jump {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-10px); }
+@keyframes happyBounce {
+    0% { transform: translateX(-50%) translateY(0) scale(1.05) rotate(0deg); }
+    100% { transform: translateX(-50%) translateY(-10px) scale(1.08) rotate(2deg); }
 }
 </style>
 </head>
 <body>
+
+<!-- Dentist image -->
+<div id="dentist" class="blink">
+    <img src="dent.jpg" alt="Cute Dentist">
+</div>
 
 <h1>Can You Solve This Riddle?</h1>
 
@@ -231,24 +163,6 @@ I make hearts warm and eyes sincere.”
 
 <p id="result"></p>
 
-<!-- Cute Dentist -->
-<div id="dentist" class="impatient">
-    <div class="hair"></div>
-    <div class="face">
-        <div class="eyes">
-            <div class="eye"></div>
-            <div class="eye"></div>
-        </div>
-        <div class="cheek left"></div>
-        <div class="cheek right"></div>
-        <div class="mouth"></div>
-    </div>
-    <div class="body">
-        <div class="arm left"></div>
-        <div class="arm right"></div>
-    </div>
-</div>
-
 <script>
 const prizePhoneNumber = "06602249414";
 const dentist = document.getElementById('dentist');
@@ -261,16 +175,15 @@ function checkAnswer() {
         result.innerHTML = `🎉 You got it! Claim your prize: send a message to <strong>${prizePhoneNumber}</strong> 😊`;
         result.style.opacity = 1;
         createHearts(20);
-        dentist.classList.remove('impatient');
         dentist.classList.add('happy');
     } else {
         result.innerHTML = "Not quite… try again!";
         result.style.opacity = 1;
         dentist.classList.remove('happy');
-        dentist.classList.add('impatient');
     }
 }
 
+/* Floating hearts */
 function createHearts(count) {
     for(let i = 0; i < count; i++){
         const heart = document.createElement('div');
