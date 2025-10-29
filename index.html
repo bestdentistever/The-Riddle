@@ -80,29 +80,26 @@
         100% { transform: translateY(-300px) scale(0.8); opacity: 0; }
     }
 
-    /* Dentist Character */
+    /* Cute Dentist Character */
     #dentist {
         position: absolute;
         bottom: 20px;
         right: 20px;
-        width: 120px;
-        height: 200px;
-        background: #ffe0bd;
-        border-radius: 50% 50% 0 0;
+        width: 100px;
+        height: 180px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: flex-start;
         transition: all 0.5s;
     }
 
     /* Hair */
     #dentist .hair {
-        width: 100px;
+        width: 80px;
         height: 60px;
         background: black;
-        border-radius: 50%;
-        margin-top: 10px;
+        border-radius: 50% 50% 0 0;
+        position: relative;
     }
 
     /* Face */
@@ -112,17 +109,17 @@
         background: #ffe0bd;
         border-radius: 50%;
         position: relative;
-        margin-top: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        box-shadow: 0 3px 5px rgba(0,0,0,0.2);
     }
 
     /* Eyes */
     .eye {
-        width: 10px;
-        height: 10px;
+        width: 14px;
+        height: 14px;
         background: black;
         border-radius: 50%;
         margin: 0 5px;
@@ -131,15 +128,28 @@
     .eyes {
         display: flex;
         justify-content: center;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
+
+    /* Cheeks */
+    .cheek {
+        width: 10px;
+        height: 10px;
+        background: #ff7f9c;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 15px;
+    }
+
+    .cheek.left { left: 15px; }
+    .cheek.right { right: 15px; }
 
     /* Mouth */
     .mouth {
-        width: 40px;
-        height: 10px;
+        width: 30px;
+        height: 15px;
         border-bottom: 3px solid black;
-        border-radius: 0 0 20px 20px;
+        border-radius: 0 0 15px 15px;
         transition: all 0.3s;
     }
 
@@ -151,6 +161,46 @@
     .happy .mouth {
         transform: rotate(0deg);
         border-color: green;
+    }
+
+    /* Body */
+    #dentist .body {
+        width: 50px;
+        height: 70px;
+        background: #a2d5f2;
+        border-radius: 10px;
+        margin-top: -10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        position: relative;
+        box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+    }
+
+    /* Arms */
+    .arm {
+        width: 12px;
+        height: 40px;
+        background: #ffe0bd;
+        border-radius: 6px;
+        position: absolute;
+        top: 10px;
+        transition: all 0.3s;
+    }
+
+    .arm.left { left: -15px; transform-origin: top center; }
+    .arm.right { right: -15px; transform-origin: top center; }
+
+    .impatient .arm.left { transform: rotate(30deg) animation: wave 0.5s infinite alternate; }
+    .impatient .arm.right { transform: rotate(-30deg) animation: wave 0.5s infinite alternate; }
+
+    .happy .arm.left { transform: rotate(0deg); }
+    .happy .arm.right { transform: rotate(0deg); }
+
+    @keyframes wave {
+        0% { transform: rotate(30deg); }
+        100% { transform: rotate(60deg); }
     }
 
 </style>
@@ -172,7 +222,7 @@ I make hearts warm and eyes sincere.”
 
 <p id="result"></p>
 
-<!-- Dentist Character -->
+<!-- Cute Dentist Character -->
 <div id="dentist" class="impatient">
     <div class="hair"></div>
     <div class="face">
@@ -180,12 +230,18 @@ I make hearts warm and eyes sincere.”
             <div class="eye"></div>
             <div class="eye"></div>
         </div>
+        <div class="cheek left"></div>
+        <div class="cheek right"></div>
         <div class="mouth"></div>
+    </div>
+    <div class="body">
+        <div class="arm left"></div>
+        <div class="arm right"></div>
     </div>
 </div>
 
 <script>
-const prizePhoneNumber = "06602249414"; // <-- Change the number here anytime
+const prizePhoneNumber = "06602249414";
 const dentist = document.getElementById('dentist');
 
 function checkAnswer() {
