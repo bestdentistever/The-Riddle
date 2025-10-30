@@ -1,18 +1,100 @@
-<audio id="bgMusic" autoplay loop muted>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secret Riddle</title>
+<style>
+body {
+    font-family: 'Arial', sans-serif;
+    background: #fff0f5;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 20px;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+h1 { font-size: 2em; margin:20px; color:#c71585; }
+p { font-size:1.2em; max-width:500px; margin-bottom:20px; line-height:1.5em; }
+input { padding:10px; font-size:1em; border-radius:5px; border:1px solid #c71585; width:200px; margin-bottom:10px; }
+button { padding:10px 20px; font-size:1em; border:none; border-radius:5px; background-color:#c71585; color:white; cursor:pointer; transition:background 0.3s; }
+button:hover { background-color:#e754a0; }
+#result { margin-top:20px; font-size:1.3em; color:#c71585; opacity:0; transition:opacity 1s ease-in; }
+
+.heart { position:absolute; font-size:24px; color:#ff69b4; animation:floatUp 3s linear forwards; user-select:none; pointer-events:none; }
+@keyframes floatUp { 0%{transform:translateY(0) scale(1);opacity:1;} 50%{transform:translateY(-150px) scale(1.3);opacity:0.7;} 100%{transform:translateY(-300px) scale(0.8);opacity:0;} }
+</style>
+</head>
+<body>
+
+<h1>Can You Solve This Riddle?</h1>
+
+<!-- Background music -->
+<audio id="bgMusic" autoplay loop>
     <source src="dont-worry-be-happy.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
 </audio>
+<button id="toggleMusic">🔊 Mute/Unmute</button>
+
+<p>
+“I curve without a line, I shine without a light,<br>
+I appear on lips when joy is near.<br>
+I can speak without a word, and make your heart feel right,<br>
+I make hearts warm and eyes sincere.”
+</p>
+
+<input type="text" id="answer" placeholder="Your answer">
+<br>
+<button onclick="checkAnswer()">Submit</button>
+
+<p id="result"></p>
 
 <script>
+// Riddle logic
+const prizePhoneNumber = "06602249414";
 const bgMusic = document.getElementById('bgMusic');
 
-// Play muted first
-bgMusic.play().catch(()=>{});
+document.getElementById('toggleMusic').addEventListener('click', () => {
+    if(bgMusic.paused){
+        bgMusic.play();
+    } else {
+        bgMusic.paused ? bgMusic.play() : bgMusic.pause();
+    }
+});
 
-// Unmute on first user interaction
-function unmuteMusic() {
-    bgMusic.muted = false;
-    bgMusic.play();
-    document.removeEventListener('click', unmuteMusic);
+function checkAnswer() {
+    const userAnswer = document.getElementById('answer').value.toLowerCase().trim();
+    const result = document.getElementById('result');
+    if(userAnswer === "smile") {
+        result.innerHTML = `🎉 You got it! Claim your prize: send a message to <strong>${prizePhoneNumber}</strong> 😊`;
+        result.style.opacity = 1;
+        createHearts(20);
+    } else {
+        result.innerHTML = "Not quite… try again!";
+        result.style.opacity = 1;
+    }
 }
-document.addEventListener('click', unmuteMusic);
+
+// Floating hearts
+function createHearts(count) {
+    for(let i=0;i<count;i++){
+        const heart=document.createElement('div');
+        heart.className='heart';
+        heart.innerHTML='❤️';
+        heart.style.left=Math.random()*window.innerWidth+'px';
+        heart.style.fontSize=(20+Math.random()*20)+'px';
+        document.body.appendChild(heart);
+        heart.animate([{transform:'translateY(0) scale(1)',opacity:1},{transform:'translateY(-300px) scale(0.8)',opacity:0}],{duration:3000,iterations:1});
+        setTimeout(()=>heart.remove(),3000);
+    }
+}
 </script>
+
+</body>
+</html>
